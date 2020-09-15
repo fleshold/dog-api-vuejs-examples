@@ -1,2 +1,2 @@
 # Dog API examples
-Examples of how to use dog.ceo API
+Vue.js examples of how to use dog.ceo API
