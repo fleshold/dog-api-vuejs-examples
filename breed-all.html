@@ -80,9 +80,7 @@
                    
                   let response = await axios.get('https://dog.ceo/api/breeds/list/all'); // 
 				  this.breeds = Object.keys(response.data.message)
-				  //console.log(response.data)
-                  //console.log(response.data.message)
-                  this.selected_breed = this.breeds[1]
+				  this.selected_breed = this.breeds[1]
                 }catch(err){
                     console.log(err)
                 }

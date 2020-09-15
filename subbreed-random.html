@@ -104,7 +104,7 @@
 				  
                   this.selected_breed = this.breeds[1]
                 }catch(err){
-               //     console.log(err)
+                    console.log(err)
                 }
 			},	
             async returnSubbreeds() {
@@ -113,17 +113,16 @@
                   let response = await axios.get('https://dog.ceo/api/breed/'+this.selected_breed+'/list'); // 
 				 
 				  this.subbreeds =  response.data.message;
-				  //console.log(response.data)
-                  //console.log(response.data.message)
+				
                   this.selected_subbreed = this.subbreeds[0]
                 }catch(err){
-               //     console.log(err)
+                    console.log(err)
                 }
 			}, 			
             async refreshImage()
             {
                 try{
-                  // https://dog.ceo/api/breed/hound/afghan/images/random
+               
                   let response = await axios.get('https://dog.ceo/api/breed/'+this.selected_breed+'/'+this.selected_subbreed+'/images/random'); // 
                    this.srcurl = response.data.message  
                 console.log(response.data)
