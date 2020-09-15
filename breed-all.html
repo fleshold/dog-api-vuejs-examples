@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <div id="app">
+    <v-app>
+      <v-content>
+        <v-container>
+         <v-banner single-line>
+               ALL THE IMAGES FROM A BREED
+         </v-banner>
+		 
+           <v-layout align-center justify-center>
+
+            <v-flex xs6>
+                <v-select :items="breeds"
+                        item-text="name"
+                        v-model="selected_breed"
+                        label="Breeds"
+                        return-object
+                        attach>
+				</v-select>
+            </v-flex>
+             
+            </v-layout>
+            <br/>
+            <v-layout row>
+                <v-flex xs12 >
+                <v-carousel hide-delimiters>
+                  <v-carousel-item
+                   v-for="(item,i) in items"
+                   :key="i"
+                 :src="item"
+                reverse-transition="fade-transition"
+                      transition="fade-transition"
+                  ></v-carousel-item>
+                    </v-carousel>
+                </v-flex>
+            </v-layout>
+           
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+ 
+  <script>
+    new Vue({ 
+        el: '#app',
+        vuetify: new Vuetify(),
+        
+		data: {
+		    items :[],
+            breeds: [],
+			selected_breed: {}
+        },
+        created(){
+            this.returnBreeds();
+        },
+		watch: {
+           
+            selected_breed: function()
+            {
+                console.log(this.selected_breed)
+
+                this.refreshImages();
+            }
+        },
+        methods:{
+		    async returnBreeds ()
+            {
+			try{
+                   
+                  let response = await axios.get('https://dog.ceo/api/breeds/list/all'); // 
+				  this.breeds = Object.keys(response.data.message)
+				  //console.log(response.data)
+                  //console.log(response.data.message)
+                  this.selected_breed = this.breeds[1]
+                }catch(err){
+                    console.log(err)
+                }
+			},			
+            async refreshImages()
+            {
+                try{
+                   
+                  let response = await axios.get('https://dog.ceo/api/breed/'+this.selected_breed+'/images'); // 
+                  this.items = response.data.message  
+                   
+                }catch(err){
+                    console.log(err)
+                }
+            }
+        }
+    })
+  </script>
+</body>
+</html>
