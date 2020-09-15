@@ -93,8 +93,7 @@
                    
                   let response = await axios.get('https://dog.ceo/api/breeds/image/random/'+this.slider); // 
                   this.items = response.data.message  
-                  //console.log(response)
-				          //console.log(items)
+                  
                 }catch(err){
                     console.log(err)
                 }
